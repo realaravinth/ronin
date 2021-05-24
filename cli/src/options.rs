@@ -3,7 +3,10 @@ use libyify::search::Config;
 
 /// Yify Torrents Client
 #[derive(Clap, Clone, Debug)]
-#[clap(name = "ronin")]
+#[clap(
+    name = "ronin",
+    author = "Aravinth Manivannan <realaravinth@batsense.net>"
+)]
 pub struct Options {
     /// Name of the person to greet
     #[clap(short, long)]

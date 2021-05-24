@@ -2,6 +2,10 @@
 name = "libyify"
 version = "0.1.0"
 edition = "2018"
+repository = "https://github.com/realaravinth/ronin"
+license = "AGPLv3 or later version"
+authors = ["realaravinth <realaravinth@batsense.net>"]
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

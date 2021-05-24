@@ -13,12 +13,12 @@ async fn main() {
 
     res.data.movies.iter().for_each(|m| {
         println!("================================================");
-        print!("[{}], {} - {}*", m.year, m.title, m.rating);
+        println!("[{}] {} - {}*", m.year, m.title, m.rating);
+        println!("================================================");
         m.torrents.iter().for_each(|t| {
             if t.quality.contains(quality) {
-                println!(" {}\n{}", t.quality, t.get_magnet_link());
+                println!("{}", t.get_magnet_link());
             }
         });
-        println!("================================================");
     });
 }
