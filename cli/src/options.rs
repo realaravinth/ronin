@@ -22,19 +22,23 @@ use libyify::search::Config;
 #[derive(Clap, Clone, Debug)]
 #[clap(
     name = "ronin",
-    author = "Aravinth Manivannan <realaravinth@batsense.net>"
+    author = "Aravinth Manivannan <realaravinth@batsense.net>",
+    version = "0.1.0"
 )]
 pub struct Options {
-    /// Name of the person to greet
+    /// Name of moive or IMDB code(if you know it)
     #[clap(short, long)]
     pub name: String,
 
+    /// quality: 720p, 1080p, 2160 or 3D
     #[clap(short, long)]
-    pub quality: libyify::search::Quality,
+    pub quality: Option<libyify::search::Quality>,
 
+    /// URL of yify torrents instance accessible to you(if default isn't working)
     #[clap(short, long)]
     pub url: Option<String>,
 
+    /// limit search results
     #[clap(short, long)]
     pub limit: Option<usize>,
 }
@@ -42,7 +46,7 @@ pub struct Options {
 impl From<Options> for Config {
     fn from(o: Options) -> Self {
         Config {
-            quality: Some(o.quality),
+            quality: o.quality,
             limit: o.limit,
             url: o.url,
             rotten_tomatoes_rattings: None,

@@ -24,7 +24,7 @@ mod options;
 async fn main() {
     let options = options::Options::parse();
 
-    let quality = options.quality.get_value();
+    let quality = options.quality.clone();
     let config: Config = options.into();
     let res = search(config.into()).await;
 
@@ -33,8 +33,12 @@ async fn main() {
         println!("[{}] {} - {}*", m.year, m.title, m.rating);
         println!("================================================");
         m.torrents.iter().for_each(|t| {
-            if t.quality.contains(quality) {
-                println!("{}", t.get_magnet_link());
+            if quality.is_some() {
+                if t.quality.contains(quality.as_ref().unwrap().get_value()) {
+                    println!("[{}] {}", t.quality, t.get_magnet_link());
+                }
+            } else {
+                println!("[{}] {}", t.quality, t.get_magnet_link());
             }
         });
     });
