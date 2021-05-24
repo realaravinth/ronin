@@ -39,6 +39,8 @@ pub struct ListResult {
     pub meta: Meta,
     pub data: Data,
 }
+
+#[derive(Clone)]
 pub enum SortBy {
     Title,
     Year,
@@ -48,6 +50,32 @@ pub enum SortBy {
     DownloadCount,
     LikeCount,
     DateAdded,
+}
+
+impl FromStr for SortBy {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "title" => Ok(SortBy::Title),
+            "year" => Ok(SortBy::Year),
+            "rating" => Ok(SortBy::Rating),
+            "peers" => Ok(SortBy::Peers),
+            "seeds" => Ok(SortBy::Seeds),
+            "download_count" => Ok(SortBy::DownloadCount),
+            "like_count" => Ok(SortBy::LikeCount),
+            "date_added" => Ok(SortBy::DateAdded),
+            _ => Err("Sorting Parameter doesn't exist"),
+        }
+    }
+}
+
+impl fmt::Debug for SortBy {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Sort by:")
+            .field("x", &self.get_value())
+            .finish()
+    }
 }
 
 pub trait Value {

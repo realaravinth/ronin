@@ -16,7 +16,7 @@
 */
 
 use clap::*;
-use libyify::search::Config;
+use libyify::search::*;
 
 /// Yify Torrents Client
 #[derive(Clap, Clone, Debug)]
@@ -32,7 +32,7 @@ pub struct Options {
 
     /// quality: 720p, 1080p, 2160 or 3D
     #[clap(short, long)]
-    pub quality: Option<libyify::search::Quality>,
+    pub quality: Option<Quality>,
 
     /// URL of yify torrents instance accessible to you(if default isn't working)
     #[clap(short, long)]
@@ -41,6 +41,18 @@ pub struct Options {
     /// limit search results
     #[clap(short, long)]
     pub limit: Option<usize>,
+
+    /// Genere of the film
+    #[clap(short, long)]
+    pub genere: Option<String>,
+
+    /// Minimum ratings of the films
+    #[clap(short, long)]
+    pub rotten_tomatoes_rattings: Option<usize>,
+
+    /// Sort by: title year rating peers seeds download_count like_count date_added
+    #[clap(short, long)]
+    pub sort_by: Option<SortBy>,
 }
 
 impl From<Options> for Config {
@@ -49,10 +61,10 @@ impl From<Options> for Config {
             quality: o.quality,
             limit: o.limit,
             url: o.url,
-            rotten_tomatoes_rattings: None,
+            rotten_tomatoes_rattings: o.rotten_tomatoes_rattings,
             query_term: Some(o.name),
-            genere: None,
-            sort_by: None,
+            genere: o.genere,
+            sort_by: o.sort_by,
         }
     }
 }
