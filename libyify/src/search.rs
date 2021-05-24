@@ -183,10 +183,10 @@ impl ListUrl {
         );
     }
 
-    fn genere(&mut self, genere: &str) {
+    fn genre(&mut self, genre: &str) {
         self.0.query_pairs_mut().append_pair(
             //self.0.set_query(Some(&format!("genere={}", genere)));
-            "genere", genere,
+            "genre", genre,
         );
     }
 
@@ -213,7 +213,7 @@ pub struct Config {
     pub quality: Option<Quality>,
     pub url: Option<String>,
     pub sort_by: Option<SortBy>,
-    pub genere: Option<String>,
+    pub genre: Option<String>,
     pub rotten_tomatoes_rattings: Option<usize>,
     pub limit: Option<usize>,
     pub query_term: Option<String>,
@@ -234,8 +234,8 @@ impl From<Config> for ListUrl {
             list_url.sort_by(sort_by);
         }
 
-        if let Some(genere) = c.genere {
-            list_url.genere(&genere);
+        if let Some(genre) = c.genre {
+            list_url.genre(&genre);
         }
 
         if let Some(rotten_tomatoes_rattings) = c.rotten_tomatoes_rattings {

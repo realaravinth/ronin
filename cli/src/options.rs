@@ -42,9 +42,9 @@ pub struct Options {
     #[clap(short, long)]
     pub limit: Option<usize>,
 
-    /// Genere of the film
+    /// genre of the film
     #[clap(short, long)]
-    pub genere: Option<String>,
+    pub genre: Option<String>,
 
     /// Minimum ratings of the films
     #[clap(short, long)]
@@ -63,7 +63,7 @@ impl From<Options> for Config {
             url: o.url,
             rotten_tomatoes_rattings: o.rotten_tomatoes_rattings,
             query_term: Some(o.name),
-            genere: o.genere,
+            genre: o.genre,
             sort_by: o.sort_by,
         }
     }
