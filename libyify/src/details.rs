@@ -1,4 +1,3 @@
-use awc::Client;
 use serde::*;
 use url::Url;
 
@@ -77,13 +76,20 @@ impl From<Config> for DetailsUrl {
     }
 }
 async fn search(url: DetailsUrl) -> ListResult {
-    let mut res = Client::default()
-        .get(&url.0.to_string())
-        .header("User-Agent", crate::USER_AGENT)
+    let client = reqwest::ClientBuilder::default()
+        .user_agent(crate::USER_AGENT)
+        .use_rustls_tls()
+        .build()
+        .unwrap();
+    let res: ListResult = client
+        .get(url.0)
         .send()
         .await
+        .unwrap()
+        .json()
+        .await
         .unwrap();
+    //    let mut res = client .get(&url.0.to_string()) .insert_header(("User-Agent", crate::USER_AGENT)) .send() .await .unwrap();
 
-    let val: ListResult = res.json().await.unwrap();
-    val
+    res
 }

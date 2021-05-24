@@ -16,49 +16,49 @@
 */
 use serde::*;
 
-mod details;
-mod search;
+pub mod details;
+pub mod search;
 
 pub const USER_AGENT: &str = "Chromium/55.0 (Windows) Cockroach";
 
 #[derive(Serialize, Deserialize)]
 pub struct Movie {
-    id: usize,
-    url: String,
-    title: String,
-    title_english: String,
-    title_long: String,
-    slug: String,
-    year: usize,
-    rating: usize,
-    generes: Vec<String>,
-    summary: String,
-    description_full: String,
-    yt_trailer_code: String,
-    language: String,
-    mpa_rating: String,
-    background_image: String,
-    background_image_original: String,
-    small_cover_image: String,
-    medium_cover_image: String,
-    large_cover_image: String,
-    state: String,
-    torrents: Vec<Torrent>,
+    pub id: usize,
+    pub url: String,
+    pub title: String,
+    pub title_english: String,
+    pub title_long: String,
+    pub slug: String,
+    pub year: usize,
+    pub rating: f32,
+    pub genres: Vec<String>,
+    pub summary: String,
+    pub description_full: String,
+    pub yt_trailer_code: String,
+    pub language: String,
+    pub mpa_rating: String,
+    pub background_image: String,
+    pub background_image_original: String,
+    pub small_cover_image: String,
+    pub medium_cover_image: String,
+    pub large_cover_image: String,
+    pub state: String,
+    pub torrents: Vec<Torrent>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct Torrent {
-    url: String,
-    hash: String,
-    quality: String,
-    #[serde(rename(serialize = "type"))]
-    rip_type: String,
-    seeds: usize,
-    peers: usize,
-    size: String,
-    size_bytes: usize,
-    date_uploaded: String,
-    date_uploaded_unix: usize,
+    pub url: String,
+    pub hash: String,
+    pub quality: String,
+    #[serde(rename(deserialize = "type"))]
+    pub rip_type: String,
+    pub seeds: usize,
+    pub peers: usize,
+    pub size: String,
+    pub size_bytes: usize,
+    pub date_uploaded: String,
+    pub date_uploaded_unix: usize,
 }
 
 impl Torrent {
