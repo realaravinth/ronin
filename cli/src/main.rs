@@ -38,6 +38,11 @@ async fn main() {
             println!("Description:");
             println!("------------");
             println!("{}\n", m.description_full);
+
+            println!("Genre:");
+            println!("------");
+            m.genres.iter().for_each(|g| print!("{} ", g));
+            println!("\n");
         }
 
         if new_options.websites {
