@@ -48,7 +48,11 @@ pub struct Options {
 
     /// Minimum ratings of the films
     #[clap(short, long)]
-    pub rotten_tomatoes_rattings: Option<usize>,
+    pub rating: Option<usize>,
+
+    /// Page number
+    #[clap(short, long)]
+    pub page_number: Option<usize>,
 
     /// Sort by: title year rating peers seeds download_count like_count date_added
     #[clap(short, long)]
@@ -61,10 +65,11 @@ impl From<Options> for Config {
             quality: o.quality,
             limit: o.limit,
             url: o.url,
-            rotten_tomatoes_rattings: o.rotten_tomatoes_rattings,
+            minimum_rating: o.rating,
             query_term: o.name,
             genre: o.genre,
             sort_by: o.sort_by,
+            page_number: o.page_number,
         }
     }
 }

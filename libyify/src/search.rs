@@ -174,11 +174,20 @@ impl ListUrl {
         );
     }
 
-    fn rotten_tomatoes_rattings(&mut self, ratings: usize) {
+    fn minimum_rating(&mut self, ratings: usize) {
         self.0.query_pairs_mut().append_pair(
             //self.0
             //.set_query(Some(&format!("with_rt_ratings={}", ratings.to_string())));
-            "with_rt_ratings",
+            "minimum_rating",
+            &ratings.to_string(),
+        );
+    }
+
+    fn page_number(&mut self, ratings: usize) {
+        self.0.query_pairs_mut().append_pair(
+            //self.0
+            //.set_query(Some(&format!("with_rt_ratings={}", ratings.to_string())));
+            "page_number",
             &ratings.to_string(),
         );
     }
@@ -214,9 +223,10 @@ pub struct Config {
     pub url: Option<String>,
     pub sort_by: Option<SortBy>,
     pub genre: Option<String>,
-    pub rotten_tomatoes_rattings: Option<usize>,
+    pub minimum_rating: Option<usize>,
     pub limit: Option<usize>,
     pub query_term: Option<String>,
+    pub page_number: Option<usize>,
 }
 
 impl From<Config> for ListUrl {
@@ -238,8 +248,12 @@ impl From<Config> for ListUrl {
             list_url.genre(&genre);
         }
 
-        if let Some(rotten_tomatoes_rattings) = c.rotten_tomatoes_rattings {
-            list_url.rotten_tomatoes_rattings(rotten_tomatoes_rattings);
+        if let Some(minimum_rating) = c.minimum_rating {
+            list_url.minimum_rating(minimum_rating);
+        }
+
+        if let Some(page_number) = c.page_number {
+            list_url.page_number(page_number);
         }
 
         if let Some(quality) = c.quality {
@@ -254,6 +268,7 @@ impl From<Config> for ListUrl {
     }
 }
 pub async fn search(url: ListUrl) -> ListResult {
+    //println!("{}", &url.0.to_string());
     let client = ClientBuilder::default()
         .user_agent(crate::USER_AGENT)
         .use_rustls_tls()
