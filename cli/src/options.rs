@@ -60,8 +60,11 @@ pub struct Options {
 
     /// print description
     #[clap(short, long)]
-    #[clap(short, long)]
     pub description: bool,
+
+    /// print links to movie websites
+    #[clap(short, long)]
+    pub websites: bool,
 }
 
 impl From<Options> for Config {

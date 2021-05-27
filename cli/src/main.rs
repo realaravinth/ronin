@@ -25,7 +25,7 @@ async fn main() {
     let options = options::Options::parse();
 
     let quality = options.quality.clone();
-    let description = options.description.clone();
+    let new_options = options.clone();
     let config: Config = options.into();
     let res = search(config.into()).await;
 
@@ -34,10 +34,17 @@ async fn main() {
         println!("[{}] {} - {}*", m.year, m.title, m.rating);
         println!("================================================");
 
-        if description {
+        if new_options.description {
             println!("Description:");
             println!("------------");
             println!("{}\n", m.description_full);
+        }
+
+        if new_options.websites {
+            println!("Websites:");
+            println!("---------");
+            println!("Yify: {}", m.url);
+            println!("IMDB {}\n", m.get_imdb_url());
         }
 
         if m.torrents.len() > 0 {

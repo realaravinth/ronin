@@ -25,6 +25,7 @@ pub const USER_AGENT: &str = "Chromium/55.0 (Windows) Cockroach";
 pub struct Movie {
     pub id: usize,
     pub url: String,
+    pub imdb_code: String,
     pub title: String,
     pub title_english: String,
     pub title_long: String,
@@ -44,6 +45,12 @@ pub struct Movie {
     pub large_cover_image: String,
     pub state: String,
     pub torrents: Vec<Torrent>,
+}
+
+impl Movie {
+    pub fn get_imdb_url(&self) -> String {
+        format!("https://imdb.com/title/{}", self.imdb_code)
+    }
 }
 
 #[derive(Serialize, Deserialize)]
