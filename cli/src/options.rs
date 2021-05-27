@@ -57,6 +57,11 @@ pub struct Options {
     /// Sort by: title year rating peers seeds download_count like_count date_added
     #[clap(short, long)]
     pub sort_by: Option<SortBy>,
+
+    /// print description
+    #[clap(short, long)]
+    #[clap(short, long)]
+    pub description: bool,
 }
 
 impl From<Options> for Config {

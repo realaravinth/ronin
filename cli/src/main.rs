@@ -25,6 +25,7 @@ async fn main() {
     let options = options::Options::parse();
 
     let quality = options.quality.clone();
+    let description = options.description.clone();
     let config: Config = options.into();
     let res = search(config.into()).await;
 
@@ -32,13 +33,24 @@ async fn main() {
         println!("================================================");
         println!("[{}] {} - {}*", m.year, m.title, m.rating);
         println!("================================================");
+
+        if description {
+            println!("Description:");
+            println!("------------");
+            println!("{}\n", m.description_full);
+        }
+
+        if m.torrents.len() > 0 {
+            println!("Torrents:");
+            println!("---------");
+        }
         m.torrents.iter().for_each(|t| {
             if quality.is_some() {
                 if t.quality.contains(quality.as_ref().unwrap().get_value()) {
-                    println!("[{}] {}", t.quality, t.get_magnet_link());
+                    println!("[{}]: {}", t.quality, t.get_magnet_link());
                 }
             } else {
-                println!("[{}] {}", t.quality, t.get_magnet_link());
+                println!("[{}]: {}", t.quality, t.get_magnet_link());
             }
         });
     });
