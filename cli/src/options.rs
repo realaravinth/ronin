@@ -28,7 +28,7 @@ use libyify::search::*;
 pub struct Options {
     /// Name of moive or IMDB code(if you know it)
     #[clap(short, long)]
-    pub name: String,
+    pub name: Option<String>,
 
     /// quality: 720p, 1080p, 2160 or 3D
     #[clap(short, long)]
@@ -62,7 +62,7 @@ impl From<Options> for Config {
             limit: o.limit,
             url: o.url,
             rotten_tomatoes_rattings: o.rotten_tomatoes_rattings,
-            query_term: Some(o.name),
+            query_term: o.name,
             genre: o.genre,
             sort_by: o.sort_by,
         }
